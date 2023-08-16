@@ -13,4 +13,5 @@ jobs:
     - name: build package
       run: |
         ls -al
-        
+        docker run -it --rm -v ${PWD}:/root/simple-deb kaylor/ubuntu:simple_deb_env sh -c "export EMAIL=kaylor.chen@qq.com && cd /root/simple-deb && rm -rf debian/changelog && dch --create --package=simple-deb -v $(git describe --tags) $(git log -n 1 --pretty=format:' %s') && fakeroot debian/rules clean && fakeroot debian/rules binary && mv ../simple-deb*.deb ./"
+        ls -al
