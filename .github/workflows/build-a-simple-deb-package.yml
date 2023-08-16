@@ -15,6 +15,7 @@ jobs:
         ls -al
         git status
         git log
+        git describe --tags
         export VERSION=$(git describe --tags)
         export MSG=$(git log -n 1 --pretty=format:' %s')
         echo version is ${VERSION}, msg is ${MSG}
