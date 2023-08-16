@@ -10,23 +10,15 @@ jobs:
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v3
-    - name: 读取当前版本号
-      id: version
-      uses: ashley-taylor/read-json-property-action@v1.0
-      with:
-        path: ./package.json
-        property: version
 
-    - name: 7. 读取描述文件
-      id: description
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./description.txt
+    - name: Get version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
     - name: build package
       run: |
         ls -al
-        echo ${{steps.version.outputs.value}}
+        echo ${{steps.version.outputs.VERSION}}
         export VERSION=${{ github.ref }}
         export MSG=$(git log -n 1 --pretty=format:' %s')
         echo version is ${VERSION}, msg is ${MSG}
