@@ -18,8 +18,7 @@ jobs:
     - name: build package
       run: |
         ls -al
-        echo ${{steps.version.outputs.VERSION}}
-        export VERSION=${{ github.ref }}
+        export VERSION=${{steps.version.outputs.VERSION}}
         export MSG=$(git log -n 1 --pretty=format:' %s')
         echo version is ${VERSION}, msg is ${MSG}
         # docker run --rm -v ${PWD}:/root/simple-deb kaylor/ubuntu:simple_deb_env sh -c "export EMAIL=kaylor.chen@qq.com && cd /root/simple-deb && rm -rf debian/changelog && dch --create --package=simple-deb -v ${VERSION} ${MSG} && fakeroot debian/rules clean && fakeroot debian/rules binary && mv ../simple-deb*.deb ./"
