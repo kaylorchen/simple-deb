@@ -28,6 +28,7 @@ jobs:
       run: |
         sudo apt install -y dpkg-dev
         echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+        echo $GITHUB_ENV
 
 
     # - name: Get version
