@@ -1,5 +1,5 @@
 raw/
-debian/
+debian/*
 !debian/changelog
 !debian/compat
 !debian/control
