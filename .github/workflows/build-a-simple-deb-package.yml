@@ -25,9 +25,9 @@ jobs:
         author_email: ${{ env.CHANGELOG_AUTHOR_EMAIL }}
         
     - name: Determine current version
-        run: |
-          sudo apt install -y dpkg-dev
-          echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
+      run: |
+        sudo apt install -y dpkg-dev
+        echo "CURRENT_VERSION=$(dpkg-parsechangelog -Sversion)" >> $GITHUB_ENV
 
 
     # - name: Get version
