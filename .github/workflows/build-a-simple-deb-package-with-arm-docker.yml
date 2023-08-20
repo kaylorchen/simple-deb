@@ -23,16 +23,16 @@ jobs:
     - name: build package
       run: |
         echo "Runner architecture is ${{matrix.arch}}"
-        arch
         ls -al
         export VERSION=$(git describe --tags)
         export MSG=$(git log -n 1 --pretty=format:' %s')
         echo version is ${VERSION}, msg is ${MSG}
-        # docker run --rm -v ${PWD}:/root/simple-deb kaylor/ubuntu_arm64_humble_env:base sh -c "export EMAIL=kaylor.chen@qq.com && cd /root/simple-deb && dch -v ${VERSION} ${MSG} && fakeroot debian/rules clean && fakeroot debian/rules binary && mv ../simple-deb*.deb ./"
-        # ls -al
-        # rm -rf ./artifact
-        # mkdir -p ./artifact
-        # cp simple-deb*.deb ./artifact
+        docker run --privileged --rm tonistiigi/binfmt --install all
+        docker run --rm -v ${PWD}:/root/simple-deb kaylor/ubuntu_arm64_humble_env:base sh -c "export EMAIL=kaylor.chen@qq.com && cd /root/simple-deb && dch -v ${VERSION} ${MSG} && fakeroot debian/rules clean && fakeroot debian/rules binary && mv ../simple-deb*.deb ./"
+        ls -al
+        rm -rf ./artifact
+        mkdir -p ./artifact
+        cp simple-deb*.deb ./artifact
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
